@@ -1,20 +1,15 @@
-import './styles/App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-// import Reference from './pages/Reference';
-// import WeeklySummary from './pages/WeeklySummary';
-// import DailyDetail from './pages/DailyDetail';
+import Home from './components/Home';
+import CreateAccount from './components/CreateAccount';
 
 const App = () => (
     <Router>
         <Navbar />
         <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/reference" element={<Reference />} />
-            <Route path="/weekly-summary" element={<WeeklySummary />} />
-            <Route path="/daily-detail" element={<DailyDetail />} /> */}
+            <Route path="/create-account" element={<CreateAccount />} />
         </Routes>
     </Router>
 );
