@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -13,8 +15,8 @@ function Login() {
         // Simulate an API call to authenticate user
         console.log('Logging in user:', email);
 
-        if (email === 'test@example.com' && password === 'password') {
-            // On success, navigate to dashboard or home page
+        if (email === 'domdem52@gmail.com' && password === 'password1!') {
+            login();
             navigate('/dashboard');
         } else {
             setError('Invalid email or password');
