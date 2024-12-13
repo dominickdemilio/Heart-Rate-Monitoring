@@ -8,8 +8,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 
 const App = () => (
-    <AuthProvider>
-        <Router>
+    <Router>
+        <AuthProvider>
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -17,8 +17,8 @@ const App = () => (
                 <Route path="/login" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
-        </Router>
-    </AuthProvider>
+        </AuthProvider>
+    </Router>
 );
 
 export default App;
