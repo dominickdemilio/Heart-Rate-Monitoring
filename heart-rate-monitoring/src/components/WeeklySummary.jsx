@@ -5,11 +5,17 @@ function WeeklySummary() {
     const [summaryData, setSummaryData] = useState(null);
 
     useEffect(() => {
-        // Simulate fetching data from an API
         const fetchData = async () => {
-            const response = await fetch('/api/weekly-summary'); // Replace with real API endpoint
-            const data = await response.json();
-            setSummaryData(data);
+            // const response = await fetch('/api/weekly-summary'); // NEED API ENDPOINT
+            // const data = await response.json();
+            // setSummaryData(data);
+
+            const fakeData = {
+                average: 72,
+                min: 60,
+                max: 85,
+            };
+            setSummaryData(fakeData);
         };
         fetchData();
     }, []);

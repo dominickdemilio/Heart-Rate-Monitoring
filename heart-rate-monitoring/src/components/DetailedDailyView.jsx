@@ -10,11 +10,10 @@ function DetailedDailyView() {
     );
 
     useEffect(() => {
-        // Simulate fetching data from an API
         const fetchData = async () => {
             const response = await fetch(
                 `/api/daily-data?date=${selectedDate}`
-            ); // Replace with real API endpoint
+            ); // NEED API ENDPOINT
             const data = await response.json();
             setDayData(data);
         };
