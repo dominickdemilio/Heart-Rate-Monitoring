@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,8 +11,8 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulate an API call to authenticate user
-        console.log('Logging in user:', email);
+
+        // INSERT API CALL TO AUTHENTICATE USER
 
         if (email === 'domdem52@gmail.com' && password === 'password1!') {
             login();
@@ -55,6 +56,15 @@ function Login() {
                     Login
                 </button>
             </form>
+            <div className="mt-3">
+                <p>
+                    Don't have an account yet?{' '}
+                    <Link to="/create-account">Create one!</Link>
+                </p>
+                <p>
+                    <Link to="/">Back to Home</Link>
+                </p>
+            </div>
         </div>
     );
 }
