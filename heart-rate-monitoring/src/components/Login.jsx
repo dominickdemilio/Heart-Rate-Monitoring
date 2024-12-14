@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,6 +9,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +37,7 @@ function Login() {
         if (email === 'domdem52@gmail.com' && password === 'password1!') {
             localStorage.setItem('token', 'example_token');
             login();
+            navigate('/dashboard');
         } else {
             setError('Invalid email or password');
         }

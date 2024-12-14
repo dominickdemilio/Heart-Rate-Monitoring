@@ -9,10 +9,9 @@ export const AuthProvider = ({ children }) => {
 
     const login = () => {
         setIsLoggedIn(true);
-        navigate('/dashboard');
     };
     const logout = () => {
-        // localStorage.removeItem('token');
+        localStorage.removeItem('token');
         setIsLoggedIn(false);
         navigate('/login');
     };
