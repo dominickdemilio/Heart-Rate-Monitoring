@@ -6,6 +6,7 @@ import Home from './components/Home';
 import CreateAccount from './components/CreateAccount';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import UpdateAccount from './components/UpdateAccount';
 
 const App = () => (
     <Router>
@@ -16,6 +17,7 @@ const App = () => (
                 <Route path="/create-account" element={<CreateAccount />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/update-account" element={<UpdateAccount />} />
             </Routes>
         </AuthProvider>
     </Router>
