@@ -11,11 +11,18 @@ function DetailedDailyView() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(
-                `/api/daily-data?date=${selectedDate}`
-            ); // NEED API ENDPOINT
-            const data = await response.json();
-            setDayData(data);
+            // const response = await fetch(
+            //     `/api/daily-data?date=${selectedDate}`
+            // ); // NEED API ENDPOINT
+            // const data = await response.json();
+            // setDayData(data);
+
+            const fakeData = {
+                time: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'],
+                heartRate: [72, 76, 68, 75, 80, 70],
+                oxygenSaturation: [98, 97, 96, 99, 98, 97],
+            };
+            setDayData(fakeData);
         };
         fetchData();
     }, [selectedDate]);
