@@ -10,6 +10,7 @@ import UpdateAccount from './components/UpdateAccount';
 import Devices from './components/Devices';
 import WeeklySummary from './components/WeeklySummary';
 import DetailedDailyView from './components/DetailedDailyView';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => (
     <Router>
@@ -20,15 +21,8 @@ const App = () => (
                 <Route path="/create-account" element={<CreateAccount />} />
                 <Route path="/login" element={<Login />} />
 
-                {/* WILL BE PROTECTED (need token-based authentication) */}
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/update-account" element={<UpdateAccount />} />
-                <Route path="/devices" element={<Devices />} />
-                <Route path="/weekly-view" element={<WeeklySummary />} />
-                <Route path="/daily-view" element={<DetailedDailyView />} />
-
                 {/* PROTECTED ROUTES */}
-                {/* <Route
+                <Route
                     path="/dashboard"
                     element={
                         <ProtectedRoute>
@@ -45,7 +39,7 @@ const App = () => (
                     }
                 />
                 <Route
-                    path="/weekly-summary"
+                    path="/weekly-view"
                     element={
                         <ProtectedRoute>
                             <WeeklySummary />
@@ -53,13 +47,21 @@ const App = () => (
                     }
                 />
                 <Route
-                    path="/daily-detail"
+                    path="/daily-view"
                     element={
                         <ProtectedRoute>
                             <DetailedDailyView />
                         </ProtectedRoute>
                     }
-                /> */}
+                />
+                <Route
+                    path="/update-account"
+                    element={
+                        <ProtectedRoute>
+                            <UpdateAccount />
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
         </AuthProvider>
     </Router>
