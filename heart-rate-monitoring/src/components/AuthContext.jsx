@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
         navigate('/dashboard');
     };
     const logout = () => {
+        // localStorage.removeItem('token');
         setIsLoggedIn(false);
         navigate('/login');
     };

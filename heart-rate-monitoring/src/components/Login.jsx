@@ -9,11 +9,29 @@ function Login() {
     const [error, setError] = useState(null);
     const { login } = useContext(AuthContext);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // INSERT API CALL TO AUTHENTICATE USER
+        // try {
+        //     const response = await fetch('/api/login', {
+        //         // FIX API
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ email, password }),
+        //     });
 
+        //     if (!response.ok) throw new Error('Invalid email or password');
+        //     const { token } = await response.json();
+
+        //     // Store token
+        //     localStorage.setItem('token', token);
+
+        //     login();
+        // } catch (err) {
+        //     setError(err.message);
+        // }
+
+        // temporary login solution
         if (email === 'domdem52@gmail.com' && password === 'password1!') {
             login();
         } else {
