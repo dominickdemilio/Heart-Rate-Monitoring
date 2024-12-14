@@ -19,11 +19,47 @@ const App = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/create-account" element={<CreateAccount />} />
                 <Route path="/login" element={<Login />} />
+
+                {/* WILL BE PROTECTED (need token-based authentication) */}
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/update-account" element={<UpdateAccount />} />
                 <Route path="/devices" element={<Devices />} />
                 <Route path="/weekly-view" element={<WeeklySummary />} />
                 <Route path="/daily-view" element={<DetailedDailyView />} />
+
+                {/* PROTECTED ROUTES */}
+                {/* <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/devices"
+                    element={
+                        <ProtectedRoute>
+                            <Devices />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/weekly-summary"
+                    element={
+                        <ProtectedRoute>
+                            <WeeklySummary />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/daily-detail"
+                    element={
+                        <ProtectedRoute>
+                            <DetailedDailyView />
+                        </ProtectedRoute>
+                    }
+                /> */}
             </Routes>
         </AuthProvider>
     </Router>
