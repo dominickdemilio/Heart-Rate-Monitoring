@@ -33,6 +33,7 @@ function Login() {
 
         // temporary login solution
         if (email === 'domdem52@gmail.com' && password === 'password1!') {
+            localStorage.setItem('token', 'example_token');
             login();
         } else {
             setError('Invalid email or password');
