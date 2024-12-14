@@ -45,12 +45,12 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/weekly-summary">
+                                <Link className="nav-link" to="/weekly-view">
                                     Weekly Summary
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/daily-detail">
+                                <Link className="nav-link" to="/daily-view">
                                     Daily Detail
                                 </Link>
                             </li>
