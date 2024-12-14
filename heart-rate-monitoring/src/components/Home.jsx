@@ -15,6 +15,7 @@ const Home = () => {
                 Set up your device, track your stats, and stay on top of your
                 health effortlessly.
             </p>
+            <p>Created by Dom, Collin, and Reece.</p>
             {!isLoggedIn && (
                 <div className="mt-4">
                     <Link to="/login" className="btn btn-primary me-2">
