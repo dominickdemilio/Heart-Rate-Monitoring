@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UpdateAccount() {
+    const navigate = useNavigate();
+
+    // Retrieve user info from localStorage
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const [success, setSuccess] = useState(null);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login'); // Redirect if no user is found
+        }
+    }, [user, navigate]);
 
     const validatePassword = (password) => {
         const strongPasswordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
         return strongPasswordRegex.test(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
+        setSuccess(null);
+
         if (password && password !== confirmPassword) {
             setError('Passwords do not match');
             return;
@@ -28,7 +43,40 @@ function UpdateAccount() {
             return;
         }
 
-        // API call to update account information
+        try {
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(
+                'http://localhost:8000/api/auth/update',
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        password: password || undefined, // Only update password if user changed it
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                const updatedUser = await response.json();
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                setSuccess('Account updated successfully!');
+            } else {
+                // Handle bad response from the server
+                const errorData = await response.json();
+                setError(
+                    errorData.message ||
+                        'Failed to update account (server error)'
+                );
+            }
+        } catch (err) {
+            setError('Unexpected error occurred.');
+        }
 
         navigate('/dashboard');
     };
@@ -86,6 +134,9 @@ function UpdateAccount() {
                     />
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}
+                {success && (
+                    <div className="alert alert-success">{success}</div>
+                )}
                 <button type="submit" className="btn btn-primary">
                     Update Account
                 </button>

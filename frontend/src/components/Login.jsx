@@ -18,7 +18,6 @@ function Login() {
             const response = await fetch(
                 'http://localhost:8000/api/auth/login',
                 {
-                    // FIX API
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password }),
@@ -42,8 +41,6 @@ function Login() {
                 const errorData = await response.json();
                 setError(errorData.message || 'Login failed (server)');
             }
-
-            login();
         } catch (err) {
             setError(err.message);
         }
