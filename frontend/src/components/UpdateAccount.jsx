@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,18 +9,12 @@ function UpdateAccount() {
     const storedUser = localStorage.getItem('user');
     const user = storedUser ? JSON.parse(storedUser) : null;
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState(user?.firstName || '');
+    const [lastName, setLastName] = useState(user?.lastName || '');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login'); // Redirect if no user is found
-        }
-    }, [user, navigate]);
 
     const validatePassword = (password) => {
         const strongPasswordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
@@ -63,8 +57,8 @@ function UpdateAccount() {
             );
 
             if (response.ok) {
-                const updatedUser = await response.json();
-                localStorage.setItem('user', JSON.stringify(updatedUser));
+                const updatedData = await response.json();
+                localStorage.setItem('user', JSON.stringify(updatedData.user));
                 setSuccess('Account updated successfully!');
             } else {
                 // Handle bad response from the server
@@ -77,8 +71,6 @@ function UpdateAccount() {
         } catch (err) {
             setError('Unexpected error occurred.');
         }
-
-        navigate('/dashboard');
     };
 
     return (
