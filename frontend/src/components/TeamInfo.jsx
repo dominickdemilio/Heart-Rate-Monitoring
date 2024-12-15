@@ -4,7 +4,7 @@ import domImage from './dom.jpg';
 import colinImage from './colin.jpg';
 
 const TeamInfo = () => {
-  // Example team members data
+  
   const teamMembers = [
     {
       name: "Reece Chambers",
@@ -55,9 +55,9 @@ const TeamInfo = () => {
 
             <p
   style={{
-    wordWrap: 'break-word', // Ensures long words (like emails) wrap properly
+    wordWrap: 'break-word', 
     overflowWrap: 'break-word',
-    fontSize: '14px', // Adjust font size if needed
+    fontSize: '11px', 
   }}
 >
   <strong>Email:</strong> <a href={`mailto:${member.email}`}>{member.email}</a>
