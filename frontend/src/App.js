@@ -10,6 +10,7 @@ import UpdateAccount from './components/UpdateAccount';
 import Devices from './components/Devices';
 import WeeklySummary from './components/WeeklySummary';
 import DetailedDailyView from './components/DetailedDailyView';
+import TeamInfo from './components/TeamInfo';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => (
@@ -51,6 +52,14 @@ const App = () => (
                     element={
                         <ProtectedRoute>
                             <DetailedDailyView />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/team-info"
+                    element={
+                        <ProtectedRoute>
+                            <TeamInfo />
                         </ProtectedRoute>
                     }
                 />

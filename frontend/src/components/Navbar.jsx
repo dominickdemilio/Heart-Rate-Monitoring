@@ -61,6 +61,11 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to="/team-info">
+                                    Team Info
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <button
                                     className="btn btn-link nav-link"
                                     onClick={logout}
