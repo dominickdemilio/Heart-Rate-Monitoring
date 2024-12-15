@@ -21,6 +21,7 @@ const App = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/create-account" element={<CreateAccount />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/team-info" element={<TeamInfo />} />
 
                 {/* PROTECTED ROUTES */}
                 <Route
@@ -52,14 +53,6 @@ const App = () => (
                     element={
                         <ProtectedRoute>
                             <DetailedDailyView />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/team-info"
-                    element={
-                        <ProtectedRoute>
-                            <TeamInfo />
                         </ProtectedRoute>
                     }
                 />
