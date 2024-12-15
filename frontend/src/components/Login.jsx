@@ -14,32 +14,38 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // try {
-        //     const response = await fetch('/api/login', {
-        //         // FIX API
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ email, password }),
-        //     });
+        try {
+            const response = await fetch(
+                'http://localhost:8000/api/auth/login',
+                {
+                    // FIX API
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                }
+            );
 
-        //     if (!response.ok) throw new Error('Invalid email or password');
-        //     const { token } = await response.json();
+            if (response.ok) {
+                const data = await response.json();
 
-        //     // Store token
-        //     localStorage.setItem('token', token);
+                // Store token in localStorage
+                localStorage.setItem('token', data.token);
 
-        //     login();
-        // } catch (err) {
-        //     setError(err.message);
-        // }
+                // Store user data in localStorage
+                localStorage.setItem('user', JSON.stringify(data.user));
 
-        // temporary login solution
-        if (email === 'domdem52@gmail.com' && password === 'password1!') {
-            localStorage.setItem('token', 'example_token');
+                // Navigate to dashboard after successful login
+                login();
+                navigate('/dashboard');
+            } else {
+                // Handle bad response from the server
+                const errorData = await response.json();
+                setError(errorData.message || 'Login failed (server)');
+            }
+
             login();
-            navigate('/dashboard');
-        } else {
-            setError('Invalid email or password');
+        } catch (err) {
+            setError(err.message);
         }
     };
 

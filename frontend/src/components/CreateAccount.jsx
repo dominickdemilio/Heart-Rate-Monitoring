@@ -17,8 +17,10 @@ function CreateAccount() {
         return strongPasswordRegex.test(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Client-side validation
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
@@ -30,7 +32,38 @@ function CreateAccount() {
             return;
         }
 
-        // API call to create account
+        try {
+            // API call to create account
+            const response = await fetch(
+                'http://localhost:8000/api/auth/register',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        firstName,
+                        lastName,
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                // Account successfully created, navigate to login page
+                navigate('/login');
+            } else {
+                // Handle errors returned from the server
+                const errorData = await response.json();
+                setError(
+                    errorData.error || 'Failed to create account (from server)'
+                );
+            }
+        } catch (err) {
+            // Handle network or other unexpected errors
+            setError('An unexpected error occurred. Please try again later.');
+        }
 
         navigate('/login');
     };
