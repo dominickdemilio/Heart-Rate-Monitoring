@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reeceImage from '../assets/reece.jpg';
 import domImage from '../assets/dom.jpg';
 import colinImage from '../assets/colin.jpg';
@@ -26,59 +27,31 @@ const TeamInfo = () => {
     ];
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-            <h1>Meet the Team</h1>
-            <div
-                style={{
-                    display: 'flex',
-                    gap: '20px',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                }}
-            >
+        <div className="container text-center my-5">
+            <h1 className="mb-4">Meet the Team</h1>
+            <div className="row g-4">
                 {teamMembers.map((member, index) => (
-                    <div
-                        key={index}
-                        style={{
-                            border: '1px solid #ccc',
-                            borderRadius: '8px',
-                            padding: '16px',
-                            textAlign: 'center',
-                            width: '200px',
-                        }}
-                    >
-                        <img
-                            src={member.image}
-                            alt={member.name}
-                            style={{
-                                width: '100%',
-                                borderRadius: '50%',
-                                marginBottom: '12px',
-                            }}
-                        />
-                        <h3>{member.name}</h3>
-                        <p>
-                            <strong>Major:</strong> {member.major}
-                        </p>
-
-                        <p
-                            style={{
-                                wordWrap: 'break-word',
-                                overflowWrap: 'break-word',
-                                fontSize: '11px',
-                            }}
-                        >
-                            <strong>Email:</strong>{' '}
-                            <a href={`mailto:${member.email}`}>
-                                {member.email}
-                            </a>
-                        </p>
+                    <div key={index} className="col-12 col-sm-6 col-md-4">
+                        <div className="card h-100">
+                            <img
+                                src={member.image}
+                                alt={member.name}
+                                className="card-img-top rounded-circle p-3"
+                                style={{ width: '70%', margin: '0 auto' }}
+                            />
+                            <div className="card-body">
+                                <h5 className="card-title">{member.name}</h5>
+                                <p className="card-text">
+                                    <strong>Major:</strong> {member.major}
+                                </p>
+                                <p className="card-text">
+                                    <strong>Email:</strong>{' '}
+                                    <a href={`mailto:${member.email}`}>
+                                        {member.email}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
