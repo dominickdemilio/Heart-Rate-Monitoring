@@ -6,16 +6,11 @@ function WeeklySummary() {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await fetch('/api/weekly-summary'); // NEED API ENDPOINT
-            // const data = await response.json();
-            // setSummaryData(data);
-
-            const fakeData = {
-                average: 72,
-                min: 60,
-                max: 85,
-            };
-            setSummaryData(fakeData);
+            const response = await fetch(
+                'http://localhost:8000/api/weekly-summary'
+            );
+            const data = await response.json();
+            setSummaryData(data);
         };
         fetchData();
     }, []);
