@@ -48,10 +48,14 @@ Log in to explore features such as periodic measurements and the weekly summary 
 
 ### Software Setup  
 
-1. Install the Particle Workbench on your computer.  
-2. Download the necessary libraries for the MAX30102 sensor:  
-   - `MAX30102_Particle` (if available) or similar library for Particle devices.  
-3. Clone this repository or copy the code into a new project in Particle Workbench.  
+1. Install Visual Studio Code
+2. Clone the Heart-Rate-Monitoring-Frontend repository from github **Frontend**: [Frontend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Frontend.git) 
+3. Clone the Heart-Rate-Monitoring-Backend repository from github **Backend**: [Backend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Backend.git)
+4. In the Visual Studio Code terminal for the frontend cd frontend
+5. In the Visual Studio Code terminal for the frontend npm install
+6. In the Visual Studio Code terminal for the frontend npm start
+7. **Install MongoDB**: [MongoDB](mongolink)
+8. In the Visual Studio Code terminal for the backend node app.js
 
 ### Upload the Code  
 
