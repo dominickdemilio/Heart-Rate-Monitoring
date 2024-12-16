@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-/ State variables for form inputs and error handling
+// State variables for form inputs and error handling
 function CreateAccount() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
