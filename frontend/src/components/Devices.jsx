@@ -204,6 +204,54 @@ function Devices() {
                                 <h5>{device.name}</h5>
                                 <div className="mb-2">
                                     <label className="form-label">
+                                        Access Token:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={device.access_token || ''}
+                                        onChange={(e) =>
+                                            setDevices((prevDevices) =>
+                                                prevDevices.map((d) =>
+                                                    d._id === device._id
+                                                        ? {
+                                                              ...d,
+                                                              access_token:
+                                                                  e.target
+                                                                      .value,
+                                                          }
+                                                        : d
+                                                )
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label className="form-label">
+                                        Particle ID:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={device.particle_id || ''}
+                                        onChange={(e) =>
+                                            setDevices((prevDevices) =>
+                                                prevDevices.map((d) =>
+                                                    d._id === device._id
+                                                        ? {
+                                                              ...d,
+                                                              particle_id:
+                                                                  e.target
+                                                                      .value,
+                                                          }
+                                                        : d
+                                                )
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label className="form-label">
                                         Measurement Time Range:
                                     </label>
                                     <div className="d-flex">
@@ -212,12 +260,21 @@ function Devices() {
                                             className="form-control me-2"
                                             value={device.timeRange.start}
                                             onChange={(e) =>
-                                                handleUpdateDevice(device._id, {
-                                                    timeRange: {
-                                                        ...device.timeRange,
-                                                        start: e.target.value,
-                                                    },
-                                                })
+                                                setDevices((prevDevices) =>
+                                                    prevDevices.map((d) =>
+                                                        d._id === device._id
+                                                            ? {
+                                                                  ...d,
+                                                                  timeRange: {
+                                                                      ...d.timeRange,
+                                                                      start: e
+                                                                          .target
+                                                                          .value,
+                                                                  },
+                                                              }
+                                                            : d
+                                                    )
+                                                )
                                             }
                                         />
                                         <input
@@ -225,12 +282,21 @@ function Devices() {
                                             className="form-control"
                                             value={device.timeRange.end}
                                             onChange={(e) =>
-                                                handleUpdateDevice(device._id, {
-                                                    timeRange: {
-                                                        ...device.timeRange,
-                                                        end: e.target.value,
-                                                    },
-                                                })
+                                                setDevices((prevDevices) =>
+                                                    prevDevices.map((d) =>
+                                                        d._id === device._id
+                                                            ? {
+                                                                  ...d,
+                                                                  timeRange: {
+                                                                      ...d.timeRange,
+                                                                      end: e
+                                                                          .target
+                                                                          .value,
+                                                                  },
+                                                              }
+                                                            : d
+                                                    )
+                                                )
                                             }
                                         />
                                     </div>
@@ -245,15 +311,38 @@ function Devices() {
                                         min="1"
                                         value={device.frequency}
                                         onChange={(e) =>
-                                            handleUpdateDevice(device._id, {
-                                                frequency:
-                                                    parseInt(e.target.value) ||
-                                                    1,
-                                            })
+                                            setDevices((prevDevices) =>
+                                                prevDevices.map((d) =>
+                                                    d._id === device._id
+                                                        ? {
+                                                              ...d,
+                                                              frequency:
+                                                                  parseInt(
+                                                                      e.target
+                                                                          .value
+                                                                  ) || 1,
+                                                          }
+                                                        : d
+                                                )
+                                            )
                                         }
                                     />
                                 </div>
                                 <div className="d-flex justify-content-end">
+                                    <button
+                                        className="btn btn-secondary btn-sm me-2"
+                                        onClick={() =>
+                                            handleUpdateDevice(device._id, {
+                                                access_token:
+                                                    device.access_token,
+                                                particle_id: device.particle_id,
+                                                timeRange: device.timeRange,
+                                                frequency: device.frequency,
+                                            })
+                                        }
+                                    >
+                                        Update Details
+                                    </button>
                                     <button
                                         className="btn btn-danger btn-sm"
                                         onClick={() =>
