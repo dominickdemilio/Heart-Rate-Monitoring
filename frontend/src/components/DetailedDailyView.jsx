@@ -11,19 +11,44 @@ function DetailedDailyView() {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await fetch(
-            //     `/api/daily-data?date=${selectedDate}`
-            // ); // NEED API ENDPOINT
-            // const data = await response.json();
-            // setDayData(data);
+            try {
+                const deviceId = 'devID';
+                const response = await fetch(
+                    `/api/devices/details/${deviceId}/daily?date=${selectedDate}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer token`,
+                        },
+                    }
+                );
 
-            const fakeData = {
-                time: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'],
-                heartRate: [72, 76, 68, 75, 80, 70],
-                oxygenSaturation: [98, 97, 96, 99, 98, 97],
-            };
-            setDayData(fakeData);
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+
+                const { dailyData } = await response.json();
+
+                const formattedData = {
+                    time: dailyData.map((data) =>
+                        new Date(data.timestamp).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        })
+                    ),
+                    heartRate: dailyData.map((data) => data.heartRate),
+                    oxygenSaturation: dailyData.map(
+                        (data) => data.oxygenSaturation
+                    ),
+                };
+
+                setDayData(formattedData);
+            } catch (error) {
+                console.error('Failed to fetch daily data:', error.message);
+            }
         };
+
         fetchData();
     }, [selectedDate]);
 

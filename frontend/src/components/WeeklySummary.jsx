@@ -6,12 +6,30 @@ function WeeklySummary() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(
-                'http://localhost:8000/api/weekly-summary'
-            );
-            const data = await response.json();
-            setSummaryData(data);
+            try {
+                const deviceId = 'devId'; // fix id
+                const response = await fetch(
+                    `/api/devices/summary/${deviceId}/weekly`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer token`, // fix token
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setSummaryData(data);
+            } catch (error) {
+                console.error('Failed to fetch weekly summary:', error.message);
+            }
         };
+
         fetchData();
     }, []);
 
@@ -26,7 +44,7 @@ function WeeklySummary() {
                 <div className="card-body">
                     <p>
                         <strong>Average Heart Rate:</strong>{' '}
-                        {summaryData.average} bpm
+                        {summaryData.average.toFixed(2)} bpm
                     </p>
                     <p>
                         <strong>Minimum Heart Rate:</strong> {summaryData.min}{' '}
