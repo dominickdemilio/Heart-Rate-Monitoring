@@ -5,7 +5,7 @@ This project uses the **MAX30102 pulse oximeter and heart rate sensor** in combi
 
 ## Features  
 
-- Account Creation
+-Account Creation
 -Login/Logout
 -Required Strong Password
 -Password Changes
