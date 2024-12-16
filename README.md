@@ -3,16 +3,15 @@
 
 This project uses the **MAX30102 pulse oximeter and heart rate sensor** in combination with a **Particle Argon microcontroller** to measure and display heartbeat and blood oxygen data.  
 
-## Features  
-
--Account Creation
--Login/Logout
--Required Strong Password
--Password Changes
--Device Registration
--Periodic Measurements
--Weekly Summary
--Offline Storage
+## Features 
+- Account Creation  
+- Login/Logout  
+- Required Strong Password  
+- Password Changes  
+- Device Registration  
+- Periodic Measurements  
+- Weekly Summary Reports  
+- Offline Storage
 
 ## Links  
 
