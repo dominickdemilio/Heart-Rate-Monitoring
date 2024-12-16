@@ -54,32 +54,18 @@ Log in to explore features such as periodic measurements and the weekly summary 
 4. In the Visual Studio Code terminal for the frontend cd frontend
 5. In the Visual Studio Code terminal for the frontend npm install
 6. In the Visual Studio Code terminal for the frontend npm start
-7. Install MongoDB: [MongoDB](mongolink)
-8. In the Visual Studio Code terminal for the backend node app.js
-
-### Upload the Code  
-
-1. Compile the code in Particle Workbench.  
-2. Flash the code to the Particle Argon.  
-3. Open a serial monitor to view real-time heartbeat data or configure a dashboard for IoT-based visualization.  
+7. Install MongoDB: [MongoDB]([mongolink](https://www.mongodb.com/try/download/community))
+8. In the Visual Studio Code terminal for the backend node app.js  
 
 ## Usage  
 
-1. Power up the device.  
-2. Place your fingertip gently on the MAX30102 sensor.  
-3. The sensor will begin detecting your heartbeat, and data will be processed by the Particle Argon.  
-4. View the results via the serial monitor or your configured IoT platform.  
+1. Power up the Argon device.
+2. Create account and login
+3. Register Argon Device to Heart Track  
+4. Place your fingertip gently on the MAX30102 sensor.  
+5. The sensor will begin detecting your heartbeat, and data will be processed by the Particle Argon.  
+6. Take measurements every half hour as prompted and view results using the daily view and weekly summary tabs 
 
-## Troubleshooting  
-
-- **No Data Output**: Check hardware connections and ensure the correct I2C pins are used.  
-- **Inconsistent Readings**: Ensure the sensor is not obstructed and your fingertip is placed correctly.  
-- **Compilation Errors**: Verify that all required libraries are installed.  
-
-
-## Acknowledgments  
-
-- Particle documentation and community  
-- MAX30102 sensor datasheet and resources  
+ 
 
 
