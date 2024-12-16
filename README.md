@@ -49,8 +49,8 @@ Log in to explore features such as periodic measurements and the weekly summary 
 ### Software Setup  
 
 1. Install Visual Studio Code
-2. Clone the Heart-Rate-Monitoring-Frontend repository from github **Frontend**: [Frontend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Frontend.git) 
-3. Clone the Heart-Rate-Monitoring-Backend repository from github **Backend**: [Backend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Backend.git)
+2. Clone the Heart-Rate-Monitoring-Frontend repository from github [Frontend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Frontend.git) 
+3. Clone the Heart-Rate-Monitoring-Backend repository from github [Backend](https://github.com/dominickdemilio/Heart-Rate-Monitoring-Backend.git)
 4. In the Visual Studio Code terminal for the frontend cd frontend
 5. In the Visual Studio Code terminal for the frontend npm install
 6. In the Visual Studio Code terminal for the frontend npm start
