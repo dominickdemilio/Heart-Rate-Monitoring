@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// State variables for form inputs and error handling
 function CreateAccount() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -12,6 +13,7 @@ function CreateAccount() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Validates password strength
     const validatePassword = (password) => {
         const strongPasswordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
         return strongPasswordRegex.test(password);
