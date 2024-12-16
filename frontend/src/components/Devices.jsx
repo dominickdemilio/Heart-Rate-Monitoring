@@ -26,23 +26,28 @@ function Devices() {
                 setDevices(data.devices);
             } else {
                 setError('Failed to fetch devices.');
+                setTimeout(() => setError(null), 10000);
             }
         } catch (err) {
             setError(err.message);
+            setTimeout(() => setError(null), 10000);
         }
     };
 
     const handleAddDevice = async () => {
         if (!deviceName.trim()) {
             setError('Device name cannot be empty');
+            setTimeout(() => setError(null), 10000);
             return;
         }
         if (!accessToken.trim()) {
             setError('Access token cannot be empty');
+            setTimeout(() => setError(null), 10000);
             return;
         }
         if (!particleId.trim()) {
             setError('Particle ID cannot be empty');
+            setTimeout(() => setError(null), 10000);
             return;
         }
 
@@ -74,11 +79,14 @@ function Devices() {
                 setParticleId('');
                 setError(null);
                 setSuccess('Device added successfully');
+                setTimeout(() => setSuccess(null), 10000);
             } else {
                 setError('Failed to add device');
+                setTimeout(() => setError(null), 10000);
             }
         } catch (err) {
             setError(err.message);
+            setTimeout(() => setError(null), 10000);
         }
     };
 
@@ -100,11 +108,14 @@ function Devices() {
                     prevDevices.filter((device) => device._id !== deviceId)
                 );
                 setSuccess('Device removed successfully');
+                setTimeout(() => setSuccess(null), 10000);
             } else {
                 setError('Failed to remove device');
+                setTimeout(() => setError(null), 10000);
             }
         } catch (err) {
             setError(err.message);
+            setTimeout(() => setError(null), 10000);
         }
     };
 
@@ -131,11 +142,14 @@ function Devices() {
                     )
                 );
                 setSuccess('Device updated successfully');
+                setTimeout(() => setSuccess(null), 10000);
             } else {
                 setError('Failed to update device');
+                setTimeout(() => setError(null), 10000);
             }
         } catch (err) {
             setError(err.message);
+            setTimeout(() => setError(null), 10000);
         }
     };
 
