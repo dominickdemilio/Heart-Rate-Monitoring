@@ -54,7 +54,7 @@ Log in to explore features such as periodic measurements and the weekly summary 
 4. In the Visual Studio Code terminal for the frontend cd frontend
 5. In the Visual Studio Code terminal for the frontend npm install
 6. In the Visual Studio Code terminal for the frontend npm start
-7. Install MongoDB: [MongoDB]([mongolink](https://www.mongodb.com/try/download/community))
+7. Install MongoDB: [MongoDB](https://www.mongodb.com/try/download/community)
 8. In the Visual Studio Code terminal for the backend node app.js  
 
 ## Usage  
