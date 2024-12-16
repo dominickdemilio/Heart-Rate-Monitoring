@@ -4,53 +4,91 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'chart.js/auto';
 
 function DetailedDailyView() {
+    const [devices, setDevices] = useState([]);
+    const [selectedDeviceId, setSelectedDeviceId] = useState('');
     const [dayData, setDayData] = useState(null);
     const [selectedDate, setSelectedDate] = useState(
         new Date().toISOString().split('T')[0]
     );
 
     useEffect(() => {
-        const fetchData = async () => {
+        // Fetch user's devices
+        const fetchDevices = async () => {
             try {
-                const deviceId = 'devID';
+                const token = localStorage.getItem('token');
+
                 const response = await fetch(
-                    `/api/devices/details/${deviceId}/daily?date=${selectedDate}`,
+                    'http://localhost:8000/api/devices/',
                     {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer token`,
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status}`);
+                const { devices } = await response.json();
+                setDevices(devices);
+                if (devices.length > 0) {
+                    setSelectedDeviceId(devices[0]._id); // Default to the first device
                 }
-
-                const { dailyData } = await response.json();
-
-                const formattedData = {
-                    time: dailyData.map((data) =>
-                        new Date(data.timestamp).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        })
-                    ),
-                    heartRate: dailyData.map((data) => data.heartRate),
-                    oxygenSaturation: dailyData.map(
-                        (data) => data.oxygenSaturation
-                    ),
-                };
-
-                setDayData(formattedData);
             } catch (error) {
-                console.error('Failed to fetch daily data:', error.message);
+                console.error('Failed to fetch devices:', error.message);
             }
         };
+        fetchDevices();
+    }, []);
 
-        fetchData();
-    }, [selectedDate]);
+    useEffect(() => {
+        if (selectedDeviceId) {
+            // Fetch detailed daily data for the selected device and date
+            const fetchData = async () => {
+                try {
+                    const token = localStorage.getItem('token');
+
+                    const response = await fetch(
+                        `http://localhost:8000/api/devices/details/${selectedDeviceId}/daily?date=${selectedDate}`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+
+                    const { dailyData } = await response.json();
+
+                    const formattedData = {
+                        time: dailyData.map((data) =>
+                            new Date(data.timestamp).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            })
+                        ),
+                        heartRate: dailyData.map((data) => data.heartRate),
+                        oxygenSaturation: dailyData.map(
+                            (data) => data.oxygenSaturation
+                        ),
+                    };
+
+                    setDayData(formattedData);
+                } catch (error) {
+                    console.error('Failed to fetch daily data:', error.message);
+                }
+            };
+
+            fetchData();
+        }
+    }, [selectedDeviceId, selectedDate]);
+
+    if (!devices.length) {
+        return <div className="container mt-5">Loading Devices...</div>;
+    }
 
     if (!dayData) {
         return (
@@ -85,6 +123,23 @@ function DetailedDailyView() {
     return (
         <div className="container mt-5">
             <h1>Detailed Daily View</h1>
+            <div className="mb-3">
+                <label htmlFor="deviceSelect" className="form-label">
+                    Select a device to pull data from:
+                </label>
+                <select
+                    id="deviceSelect"
+                    className="form-select"
+                    value={selectedDeviceId}
+                    onChange={(e) => setSelectedDeviceId(e.target.value)}
+                >
+                    {devices.map((device) => (
+                        <option key={device._id} value={device._id}>
+                            {device.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <div className="mb-3">
                 <label htmlFor="datePicker" className="form-label">
                     Select Date:
