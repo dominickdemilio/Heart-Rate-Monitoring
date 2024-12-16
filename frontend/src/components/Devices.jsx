@@ -3,7 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Devices() {
     const [devices, setDevices] = useState([]);
-    const [newDevice, setNewDevice] = useState('');
+    const [deviceName, setDeviceName] = useState('');
+    const [accessToken, setAccessToken] = useState('');
+    const [particleId, setParticleId] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
@@ -31,8 +33,16 @@ function Devices() {
     };
 
     const handleAddDevice = async () => {
-        if (!newDevice.trim()) {
+        if (!deviceName.trim()) {
             setError('Device name cannot be empty');
+            return;
+        }
+        if (!accessToken.trim()) {
+            setError('Access token cannot be empty');
+            return;
+        }
+        if (!particleId.trim()) {
+            setError('Particle ID cannot be empty');
             return;
         }
 
@@ -47,10 +57,9 @@ function Devices() {
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
-                        access_token:
-                            'c52115ea9877e6e6872a6d1af3063d3e42b7aa2b',
-                        particle_id: 'e00fce6834abc7249e822f6f',
-                        name: newDevice.trim(),
+                        access_token: accessToken.trim(),
+                        particle_id: particleId.trim(),
+                        name: deviceName.trim(),
                         timeRange: { ...defaultTimeRange },
                         frequency: defaultFrequency,
                     }),
@@ -60,7 +69,9 @@ function Devices() {
             if (response.ok) {
                 const data = await response.json();
                 setDevices((prevDevices) => [...prevDevices, data.device]);
-                setNewDevice('');
+                setDeviceName('');
+                setAccessToken('');
+                setParticleId('');
                 setError(null);
                 setSuccess('Device added successfully');
             } else {
@@ -136,15 +147,38 @@ function Devices() {
         <div className="container mt-5">
             <h1>Manage Devices</h1>
             <div className="mb-3">
-                <label htmlFor="newDevice" className="form-label">
+                <label htmlFor="deviceName" className="form-label">
                     Add New Device
                 </label>
                 <input
                     type="text"
                     className="form-control"
-                    id="newDevice"
-                    value={newDevice}
-                    onChange={(e) => setNewDevice(e.target.value)}
+                    id="deviceName"
+                    placeholder="Device Name"
+                    value={deviceName}
+                    onChange={(e) => setDeviceName(e.target.value)}
+                />
+                <label htmlFor="accessToken" className="form-label mt-3">
+                    Access Token
+                </label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="accessToken"
+                    placeholder="Access Token"
+                    value={accessToken}
+                    onChange={(e) => setAccessToken(e.target.value)}
+                />
+                <label htmlFor="particleId" className="form-label mt-3">
+                    Particle ID
+                </label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="particleId"
+                    placeholder="Particle ID"
+                    value={particleId}
+                    onChange={(e) => setParticleId(e.target.value)}
                 />
                 {error && (
                     <div className="alert alert-danger mt-2">{error}</div>
