@@ -18,6 +18,7 @@ const App = () => (
         <AuthProvider>
             <Navbar />
             <Routes>
+                {/* Public routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/create-account" element={<CreateAccount />} />
                 <Route path="/login" element={<Login />} />
