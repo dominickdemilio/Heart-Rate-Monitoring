@@ -47,6 +47,9 @@ function Devices() {
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
+                        access_token:
+                            'c52115ea9877e6e6872a6d1af3063d3e42b7aa2b',
+                        particle_id: 'e00fce6834abc7249e822f6f',
                         name: newDevice.trim(),
                         timeRange: { ...defaultTimeRange },
                         frequency: defaultFrequency,
