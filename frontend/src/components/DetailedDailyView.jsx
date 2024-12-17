@@ -65,7 +65,7 @@ function DetailedDailyView() {
 
                     const formattedData = {
                         time: dailyData.map((data) =>
-                            new Date(data.timestamp).toLocaleTimeString([], {
+                            new Date(data.time).toLocaleTimeString([], {
                                 hour: '2-digit',
                                 minute: '2-digit',
                             })
