@@ -25,7 +25,7 @@ function WeeklySummary() {
                 const { devices } = await response.json();
                 setDevices(devices);
                 if (devices.length > 0) {
-                    setSelectedDeviceId(devices[0]._id); // Default to the first device
+                    setSelectedDeviceId(devices[0].particle_id); // Default to the first device
                 }
             } catch (error) {
                 console.error('Failed to fetch devices:', error.message);
@@ -91,7 +91,10 @@ function WeeklySummary() {
                     onChange={(e) => setSelectedDeviceId(e.target.value)}
                 >
                     {devices.map((device) => (
-                        <option key={device._id} value={device._id}>
+                        <option
+                            key={device.particle_id}
+                            value={device.particle_id}
+                        >
                             {device.name}
                         </option>
                     ))}
