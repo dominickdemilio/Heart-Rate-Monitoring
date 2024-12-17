@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+/**
+ * WeeklySummary Component
+ *
+ * This component fetches and displays a weekly summary of heart rate data
+ * for a selected device. Users can select a device from a dropdown list.
+ */
 function WeeklySummary() {
-    const [summaryData, setSummaryData] = useState(null);
-    const [devices, setDevices] = useState([]);
-    const [selectedDeviceId, setSelectedDeviceId] = useState('');
+    // State variables for managing devices, summary data, and selected device ID
+    const [summaryData, setSummaryData] = useState(null); // Weekly summary data
+    const [devices, setDevices] = useState([]); // List of user's devices
+    const [selectedDeviceId, setSelectedDeviceId] = useState(''); // Currently selected device ID
 
+    /**
+     * useEffect hook to fetch devices when the component mounts.
+     * Retrieves the user's devices from the backend and selects the first device by default.
+     */
     useEffect(() => {
-        // Fetch user's devices
         const fetchDevices = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -22,6 +32,7 @@ function WeeklySummary() {
                         },
                     }
                 );
+
                 const { devices } = await response.json();
                 setDevices(devices);
                 if (devices.length > 0) {
@@ -34,9 +45,12 @@ function WeeklySummary() {
         fetchDevices();
     }, []);
 
+    /**
+     * useEffect hook to fetch weekly summary data when the selected device changes.
+     * Retrieves heart rate summary data for the currently selected device.
+     */
     useEffect(() => {
         if (selectedDeviceId) {
-            // Fetch weekly summary for selected device
             const fetchData = async () => {
                 try {
                     const token = localStorage.getItem('token');
@@ -69,6 +83,7 @@ function WeeklySummary() {
         }
     }, [selectedDeviceId]);
 
+    // Display loading messages while devices or summary data are being fetched
     if (!devices.length) {
         return <div className="container mt-5">Loading Devices...</div>;
     }
@@ -80,6 +95,7 @@ function WeeklySummary() {
     return (
         <div className="container mt-5">
             <h1>Weekly Summary</h1>
+            {/* Dropdown menu for selecting a device */}
             <div className="mb-3">
                 <label htmlFor="deviceSelect" className="form-label">
                     Select a device to pull data from:
@@ -100,6 +116,7 @@ function WeeklySummary() {
                     ))}
                 </select>
             </div>
+            {/* Display weekly summary data in a card */}
             <div className="card mt-3">
                 <div className="card-body">
                     <p>
