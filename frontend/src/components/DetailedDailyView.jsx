@@ -30,7 +30,7 @@ function DetailedDailyView() {
                 const { devices } = await response.json();
                 setDevices(devices);
                 if (devices.length > 0) {
-                    setSelectedDeviceId(devices[0]._id); // Default to the first device
+                    setSelectedDeviceId(devices[0].particle_id); // Default to the first device
                 }
             } catch (error) {
                 console.error('Failed to fetch devices:', error.message);
