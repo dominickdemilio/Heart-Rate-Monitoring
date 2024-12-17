@@ -70,11 +70,11 @@ function DetailedDailyView() {
                                 minute: '2-digit',
                             })
                         ),
-                        heartRate: dailyData.map((data) => data.heartRate),
-                        oxygenSaturation: dailyData.map(
-                            (data) => data.oxygenSaturation
-                        ),
+                        heartRate: dailyData.map((data) => data.ir),
+                        oxygenSaturation: dailyData.map((data) => data.red),
                     };
+
+                    console.log(formattedData);
 
                     setDayData(formattedData);
                 } catch (error) {
