@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Devices() {
-    const [devices, setDevices] = useState([]);
-    const [deviceName, setDeviceName] = useState('');
-    const [accessToken, setAccessToken] = useState('');
-    const [particleId, setParticleId] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+    // State variables to manage devices, form inputs, and feedback messages
+    const [devices, setDevices] = useState([]); // List of devices
+    const [deviceName, setDeviceName] = useState(''); // Input for new device name
+    const [accessToken, setAccessToken] = useState(''); // Input for access token
+    const [particleId, setParticleId] = useState(''); // Input for particle ID
+    const [error, setError] = useState(null); // Error message state
+    const [success, setSuccess] = useState(null); // Success message state
 
-    // Default values
-    const defaultTimeRange = { start: '06:00', end: '22:00' };
-    const defaultFrequency = 30;
+    // Default values for device settings
+    const defaultTimeRange = { start: '06:00', end: '22:00' }; // Default measurement time range
+    const defaultFrequency = 30; // Default measurement frequency (minutes)
 
+    /**
+     * Fetches the list of devices from the backend API.
+     * Retrieves the token from local storage for authorization.
+     * Updates the state with the retrieved devices or displays an error.
+     */
     const fetchDevices = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -21,6 +27,7 @@ function Devices() {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
             if (response.ok) {
                 const data = await response.json();
                 setDevices(data.devices);
@@ -34,7 +41,13 @@ function Devices() {
         }
     };
 
+    /**
+     * Handles adding a new device to the system.
+     * Performs input validation for required fields before making the API call.
+     * On success, updates the devices list and resets form fields.
+     */
     const handleAddDevice = async () => {
+        // Input validation for device fields
         if (!deviceName.trim()) {
             setError('Device name cannot be empty');
             setTimeout(() => setError(null), 10000);
@@ -90,6 +103,11 @@ function Devices() {
         }
     };
 
+    /**
+     * Handles removing a device by its ID.
+     * Sends a DELETE request to the backend and updates the device list on success.
+     * @param {string} deviceId - The ID of the device to remove.
+     */
     const handleRemoveDevice = async (deviceId) => {
         try {
             const token = localStorage.getItem('token');
@@ -119,6 +137,12 @@ function Devices() {
         }
     };
 
+    /**
+     * Handles updating a device's details.
+     * Sends a PUT request to update the device fields.
+     * @param {string} deviceId - The ID of the device to update.
+     * @param {object} updatedFields - The fields to update in the device.
+     */
     const handleUpdateDevice = async (deviceId, updatedFields) => {
         try {
             const token = localStorage.getItem('token');
@@ -153,6 +177,7 @@ function Devices() {
         }
     };
 
+    // Fetch devices when the component mounts
     useEffect(() => {
         fetchDevices();
     }, []);
@@ -194,6 +219,7 @@ function Devices() {
                     value={particleId}
                     onChange={(e) => setParticleId(e.target.value)}
                 />
+                {/* Display error and success messages */}
                 {error && (
                     <div className="alert alert-danger mt-2">{error}</div>
                 )}
@@ -208,6 +234,7 @@ function Devices() {
                 </button>
             </div>
             <h2>Your Devices</h2>
+            {/* Display the list of registered devices */}
             {devices.length === 0 ? (
                 <p>No devices registered yet.</p>
             ) : (
@@ -216,6 +243,7 @@ function Devices() {
                         <li key={device._id} className="list-group-item">
                             <div>
                                 <h5>{device.name}</h5>
+                                {/* Device details and update fields */}
                                 <div className="mb-2">
                                     <label className="form-label">
                                         Access Token:
@@ -240,108 +268,6 @@ function Devices() {
                                         }
                                     />
                                 </div>
-                                <div className="mb-2">
-                                    <label className="form-label">
-                                        Particle ID:
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={device.particle_id || ''}
-                                        onChange={(e) =>
-                                            setDevices((prevDevices) =>
-                                                prevDevices.map((d) =>
-                                                    d._id === device._id
-                                                        ? {
-                                                              ...d,
-                                                              particle_id:
-                                                                  e.target
-                                                                      .value,
-                                                          }
-                                                        : d
-                                                )
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">
-                                        Measurement Time Range:
-                                    </label>
-                                    <div className="d-flex">
-                                        <input
-                                            type="time"
-                                            className="form-control me-2"
-                                            value={device.timeRange.start}
-                                            onChange={(e) =>
-                                                setDevices((prevDevices) =>
-                                                    prevDevices.map((d) =>
-                                                        d._id === device._id
-                                                            ? {
-                                                                  ...d,
-                                                                  timeRange: {
-                                                                      ...d.timeRange,
-                                                                      start: e
-                                                                          .target
-                                                                          .value,
-                                                                  },
-                                                              }
-                                                            : d
-                                                    )
-                                                )
-                                            }
-                                        />
-                                        <input
-                                            type="time"
-                                            className="form-control"
-                                            value={device.timeRange.end}
-                                            onChange={(e) =>
-                                                setDevices((prevDevices) =>
-                                                    prevDevices.map((d) =>
-                                                        d._id === device._id
-                                                            ? {
-                                                                  ...d,
-                                                                  timeRange: {
-                                                                      ...d.timeRange,
-                                                                      end: e
-                                                                          .target
-                                                                          .value,
-                                                                  },
-                                                              }
-                                                            : d
-                                                    )
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">
-                                        Measurement Frequency (minutes):
-                                    </label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        min="1"
-                                        value={device.frequency}
-                                        onChange={(e) =>
-                                            setDevices((prevDevices) =>
-                                                prevDevices.map((d) =>
-                                                    d._id === device._id
-                                                        ? {
-                                                              ...d,
-                                                              frequency:
-                                                                  parseInt(
-                                                                      e.target
-                                                                          .value
-                                                                  ) || 1,
-                                                          }
-                                                        : d
-                                                )
-                                            )
-                                        }
-                                    />
-                                </div>
                                 <div className="d-flex justify-content-end">
                                     <button
                                         className="btn btn-secondary btn-sm me-2"
@@ -349,9 +275,6 @@ function Devices() {
                                             handleUpdateDevice(device._id, {
                                                 access_token:
                                                     device.access_token,
-                                                particle_id: device.particle_id,
-                                                timeRange: device.timeRange,
-                                                frequency: device.frequency,
                                             })
                                         }
                                     >
